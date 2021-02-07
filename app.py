@@ -29,4 +29,5 @@ def register_blueprints(app):
     app.register_blueprint(API)
     app.register_blueprint(auth)
 register_blueprints(app)
-app.run(debug=False)
+if __name__ == '__main__':
+    app.run(debug=False)
