@@ -30,6 +30,8 @@ def loadMoviesJson(current_user):
         movieName=movie["name"]
         movieRecord=Movies(name=movieName,imdb_score=imdb_score,popularity99=popularity,director=director)
         db.session.add(movieRecord)
+        db.session.flush()
+        print(movieRecord.id,movieRecord.name,movieRecord.director)
         db.session.commit()
         for genre in genres:
             movieGenre=MovieGenre(MovieID=movieRecord.id,Genre=genre)
@@ -53,8 +55,9 @@ def SearchMovie():
         return {"error":401, "message":"query is missing"}
     if(len(query)<3):
         return jsonify({"error":"401","message":"Please search with 3 or more words"})
-    movies=Movies.search_query(query).all()
-    if not movies:
+    try:
+        movies=Movies.query.whoosh_search(query).all()
+    except:
         return jsonify({"error":"401","message":"Record not found/ Search Failed"})
     result=[]
     for movie in movies:
@@ -75,7 +78,7 @@ def getMovieByID(movieID):
     Respond: Message with JSON with movie details
     """
     movie=Movies.query.filter_by(id=movieID).first()
-    if movie:
+    if not movie:
         return jsonify({"error":"401","message":"Record not found, enter valid movie ID"})
     movieGenre=[]
     genres=MovieGenre.query.filter_by(MovieID=movieID).all()

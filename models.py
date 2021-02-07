@@ -1,5 +1,7 @@
-from app import db
+from app import db,app
 from flask_login import UserMixin
+import flask_whooshalchemyplus as wb
+
 if(True):
     class User(UserMixin,db.Model):
         id=db.Column(db.Integer,primary_key=True)
@@ -18,7 +20,9 @@ if(True):
         popularity99=db.Column(db.Numeric(2,2),default=0.0)
         director=db.Column(db.String(80),nullable=False)
         def __str__(self):
+            index_service.register_class(Movies)
             return str(self.name)
+    wb.whoosh_index(app,Movies)
     class MovieGenre(db.Model):
         MovieID=db.Column(db.Integer,db.ForeignKey('movies.id'),primary_key=True)
         Genre=db.Column(db.String(20),primary_key=True)

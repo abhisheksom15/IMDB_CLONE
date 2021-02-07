@@ -2,19 +2,20 @@ import os
 from flask import Flask,jsonify,Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from whooshalchemy import IndexService  # Modified
+ # Modified
 
 app = Flask(__name__)
 app.debug = False
 app.config['SECRET_KEY'] = '8b1e36fe-5751-4d53-b4bd-e3e008517c50'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///imdb.db"
-app.config['WHOOSH_BASE']="Whoosh"
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path=os.path.join(os.path.abspath(os.path.dirname(__file__)),"search.db")
+#app.config['WHOOSH_BASE']=path
 app.config['ADMIN_KEY']="cb993ada-d3ae-43ee-aad0-3a2ec50a70b0"
 
 db=SQLAlchemy(app)
 from models import Movies
-index_service = IndexService(config=app.config)
-index_service.register_class(Movies)
+
 from models import User
 
 def register_blueprints(app):
