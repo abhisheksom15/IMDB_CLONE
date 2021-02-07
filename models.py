@@ -1,6 +1,6 @@
 from app import db,app
 from flask_login import UserMixin
-import flask_whooshalchemyplus as wb
+import flask_whooshalchemy as wb
 
 if(True):
     class User(UserMixin,db.Model):
