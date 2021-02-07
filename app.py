@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.debug = False
 app.config['SECRET_KEY'] = '8b1e36fe-5751-4d53-b4bd-e3e008517c50'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///imdb.db"
-app.config['WHOOSH_BASE']="models.py"
+app.config['WHOOSH_BASE']="Whoosh"
 app.config['ADMIN_KEY']="cb993ada-d3ae-43ee-aad0-3a2ec50a70b0"
 
 db=SQLAlchemy(app)
