@@ -5,7 +5,6 @@ from datetime import datetime
 import flask_whooshalchemyplus as wb  # Modified
 
 app = Flask(__name__)
-application=app
 app.debug = False
 app.config['SECRET_KEY'] = '8b1e36fe-5751-4d53-b4bd-e3e008517c50'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///imdb.db"
