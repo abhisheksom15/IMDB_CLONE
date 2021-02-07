@@ -53,9 +53,8 @@ def SearchMovie():
         return {"error":401, "message":"query is missing"}
     if(len(query)<3):
         return jsonify({"error":"401","message":"Please search with 3 or more words"})
-    try:
-        movies=Movies.query.whoosh_search(query).all()
-    except:
+    movies=Movies.search_query(query).all()
+    if not movies:
         return jsonify({"error":"401","message":"Record not found/ Search Failed"})
     result=[]
     for movie in movies:
@@ -76,7 +75,7 @@ def getMovieByID(movieID):
     Respond: Message with JSON with movie details
     """
     movie=Movies.query.filter_by(id=movieID).first()
-    if not movie:
+    if movie:
         return jsonify({"error":"401","message":"Record not found, enter valid movie ID"})
     movieGenre=[]
     genres=MovieGenre.query.filter_by(MovieID=movieID).all()

@@ -1,8 +1,8 @@
 import os
 from flask import Flask,jsonify,Blueprint
-from flask_sqlalchemy3 import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import flask_whooshalchemyplus as wb  # Modified
+from whooshalchemy import IndexService  # Modified
 
 app = Flask(__name__)
 app.debug = False
@@ -13,7 +13,8 @@ app.config['ADMIN_KEY']="cb993ada-d3ae-43ee-aad0-3a2ec50a70b0"
 
 db=SQLAlchemy(app)
 from models import Movies
-wb.whoosh_index(app,Movies)
+index_service = IndexService(config=app.config)
+index_service.register_class(Movies)
 from models import User
 
 def register_blueprints(app):
