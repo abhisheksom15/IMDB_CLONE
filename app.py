@@ -1,6 +1,6 @@
 import os
 from flask import Flask,jsonify,Blueprint
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy3 import SQLAlchemy
 from datetime import datetime
 import flask_whooshalchemyplus as wb  # Modified
 
